@@ -37,6 +37,7 @@ struct sAddresses
 	static uintptr_t _ps3_controls[4];
 	static uintptr_t _ps3_controls_analog[4];
 	static uintptr_t _skipIntroVideos;
+	static uintptr_t _disableTelemetry;
 };
 
 uintptr_t sAddresses::Pad_UpdateTimeStamps = 0;
@@ -53,6 +54,7 @@ uint32_t* sAddresses::_descriptor_var = 0;
 uintptr_t sAddresses::_ps3_controls[4];
 uintptr_t sAddresses::_ps3_controls_analog[4];
 uintptr_t sAddresses::_skipIntroVideos = 0;
+uintptr_t sAddresses::_disableTelemetry = 0;
 
 
 auto ac_getNewDescriptor = (void* (__cdecl*)(uint32_t, uint32_t, uint32_t))0;
@@ -376,6 +378,8 @@ void patch()
 	if (get_private_profile_bool("SkipIntroVideos", FALSE))
 		PatchByte(sAddresses::_skipIntroVideos, 0xEB);
 
+	if (get_private_profile_bool("DisableTelemetry", TRUE))
+		PatchByte(sAddresses::_disableTelemetry, 0);
 }
 
 void InitAddresses(eExeVersion exeVersion)
@@ -412,6 +416,7 @@ void InitAddresses(eExeVersion exeVersion)
 		sAddresses::_ps3_controls_analog[2] = 0x98D07B + 4;
 		sAddresses::_ps3_controls_analog[3] = 0x98D092 + 4;
 		sAddresses::_skipIntroVideos = 0x405495;
+		sAddresses::_disableTelemetry = 0x017382D8;
 		break;
 	case DIGITAL_DX10:
 		sAddresses::Pad_UpdateTimeStamps = 0x912620;
@@ -438,6 +443,7 @@ void InitAddresses(eExeVersion exeVersion)
 		sAddresses::_ps3_controls_analog[2] = 0x96D88B + 4;
 		sAddresses::_ps3_controls_analog[3] = 0x96D8A2 + 4;
 		sAddresses::_skipIntroVideos = 0x4054B5;
+		sAddresses::_disableTelemetry = 0x170D798;
 
 		if (get_private_profile_bool("D3D10_RemoveDuplicateResolutions", TRUE))
 		{

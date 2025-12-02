@@ -14,6 +14,7 @@ EaglePatchAC1 is an ASI plugin that fixes a number of issues in Assassin's Creed
 - Added support of all XInput controllers
 - Added detection of hotplugged controllers
 - Removed support of DInput controllers
+- Removed telemetry
 - Gamepad and kb/mouse controls work at the same time (read note below)
 - Added ini setting for enabling PS3-like controls
 - Added ini setting to skip intro videos (without having to rename files)
